@@ -4,64 +4,64 @@
 <body>
   <div id="time">let's go!</div>
 </body>
+
 </html>
 
 <style>
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-}
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
 
-div {
-  margin:0;
-  width: 500px;
-  height: 300px;
-  text-align: center;
-  font-size: 150px;
-}
-
+  div {
+    margin: 0;
+    width: 500px;
+    height: 300px;
+    text-align: center;
+    font-size: 150px;
+  }
 </style>
 
 <script>
-const WORK_END_TIME_24HR_FORMAT = 14;
-const today = new Date();
-const endTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), WORK_END_TIME_24HR_FORMAT, 0, 0, 0).getTime();
-let timeNow;
+  const WORK_END_TIME_24HR_FORMAT = 17;
+  const today = new Date();
+  const endTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), WORK_END_TIME_24HR_FORMAT, 0, 0, 0).getTime();
+  let timeNow;
 
-function updateTimeNow() {
-  timeNow = Date.now();
-}
+  function updateTimeNow() {
+    timeNow = Date.now();
+  }
 
-function calculateRemainingTime() {
-  return endTime - timeNow;
-}
+  function calculateRemainingTime() {
+    return endTime - timeNow;
+  }
 
-function getRemainingHours(remainingTime) {
-  return Math.floor(remainingTime / (1000 * 60 * 60));
-}
+  function getRemainingHours(remainingTime) {
+    return Math.floor(remainingTime / (1000 * 60 * 60));
+  }
 
-function getRemainingMinutes(remainingTime, remainingHours) {
-  return Math.floor(((remainingTime / (1000 * 60 * 60)) - remainingHours) * 60);
-}
+  function getRemainingMinutes(remainingTime, remainingHours) {
+    return Math.floor(((remainingTime / (1000 * 60 * 60)) - remainingHours) * 60);
+  }
 
-function getRemainingSeconds(remainingTime, remainingHours, remainingMinutes) {
-  return Math.floor(((((remainingTime / (1000 * 60 * 60)) - remainingHours) * 60) - remainingMinutes) * 60);
-}
+  function getRemainingSeconds(remainingTime, remainingHours, remainingMinutes) {
+    return Math.floor(((((remainingTime / (1000 * 60 * 60)) - remainingHours) * 60) - remainingMinutes) * 60);
+  }
 
-function runClock() {
-  updateTimeNow();
-  const remainingTime = calculateRemainingTime();
-  const remainingHours = getRemainingHours(remainingTime);
-  const remainingMinutes = getRemainingMinutes(remainingTime, remainingHours);
-  const remainingSeconds = getRemainingSeconds(remainingTime, remainingHours, remainingMinutes);
-  timeDiv.innerText = `${remainingHours}:${remainingMinutes}:${remainingSeconds}`;
-}
+  function runClock() {
+    updateTimeNow();
+    const remainingTime = calculateRemainingTime();
+    const remainingHours = getRemainingHours(remainingTime);
+    const remainingMinutes = getRemainingMinutes(remainingTime, remainingHours);
+    const remainingSeconds = getRemainingSeconds(remainingTime, remainingHours, remainingMinutes);
+    timeDiv.innerText = `${remainingHours}:${remainingMinutes}:${remainingSeconds}`;
+  }
 
-const timeDiv = document.getElementById("time");
+  const timeDiv = document.getElementById("time");
 
-setInterval(() => runClock(), 1000);
+  setInterval(() => runClock(), 1000);
 
 </script>
