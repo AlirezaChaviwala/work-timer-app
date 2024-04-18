@@ -3,6 +3,7 @@
 
 <body>
   <div id="time">let's go!</div>
+  <div id="message"></div>
 </body>
 
 </html>
@@ -10,18 +11,29 @@
 <style>
   body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
   }
 
-  div {
+  #time {
     margin: 0;
     width: 500px;
     height: 300px;
     text-align: center;
     font-size: 150px;
+  }
+
+  #message {
+    margin: 0;
+    width: 500px;
+    height: 300px;
+    text-align: center;
+    font-size: 50px;
+    font-family: "calibri";
+    font-style: italic
   }
 </style>
 
@@ -31,12 +43,18 @@
   const endTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), WORK_END_TIME_24HR_FORMAT, 0, 0, 0).getTime();
   let timeNow;
 
+
+  function isWorkDayOver() {
+    return timeNow > endTime;
+  }
+
+
   function updateTimeNow() {
     timeNow = Date.now();
   }
 
   function calculateRemainingTime() {
-    return endTime - timeNow;
+    return Math.abs(endTime - timeNow);
   }
 
   function getRemainingHours(remainingTime) {
@@ -58,9 +76,13 @@
     const remainingMinutes = getRemainingMinutes(remainingTime, remainingHours);
     const remainingSeconds = getRemainingSeconds(remainingTime, remainingHours, remainingMinutes);
     timeDiv.innerText = `${remainingHours}:${remainingMinutes}:${remainingSeconds}`;
+    timeDiv.style = `color:${isWorkDayOver() ? "green" : "black"}`;
+    messageDiv.innerText = isWorkDayOver() ? "TOP JOB!" : "KEEP GOING!";
+    messageDiv.style = `color:${isWorkDayOver() ? "green" : "black"}`;
   }
 
   const timeDiv = document.getElementById("time");
+  const messageDiv = document.getElementById("message");
 
   setInterval(() => runClock(), 1000);
 
